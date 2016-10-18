@@ -14,12 +14,13 @@ browser connections.
 
 ## Installation
 
-1) Add package to your project using composer:
 ```
 composer require inpassor/realplexor
 ```
 
-2) Use the trait RealplexorAPI whenever you want:
+## Usage
+
+Create some class which uses the trait RealplexorAPI:
 ```
 class Realplexor
 {
@@ -28,15 +29,14 @@ class Realplexor
 }
 ```
 
-## Usage
-
-Create and configure Realplexor instance (which uses RealplexorAPI trait):
+Create the instance of this class (which uses the trait RealplexorAPI):
 ```
 $realplexor = new Realplexor();
 $realplexor->host = '127.0.0.1';
 $realplexor->port = 10010;
 $realplexor->namespace = 'rpl_';
 ```
+
 Then use it:
 ```
 $realplexor->send('Alpha',$someData);
@@ -57,17 +57,17 @@ timeout | integer | The connection timeout, in seconds. Default: 5
 
 Method | Description
 --- | ---
-send() | Send data to Realplexor.
-cmdOnlineWithCounters() | Return list of online IDs (keys) and number of online browsers for each ID. ("online" means "connected just now", it is very approximate)
-cmdOnline() | Return list of online IDs.
-cmdWatch() | Return all Realplexor events (e.g. ID offline/offline changes) happened after $fromPos cursor.
+[send()](#public-function-sendidsandcursors-data-showonlyforids--null) | Send data to Realplexor.
+[cmdOnlineWithCounters()](#public-function-cmdonlinewithcountersidprefixes--null) | Return list of online IDs (keys) and number of online browsers for each ID. ("online" means "connected just now", it is very approximate)
+[cmdOnline()](#public-function-cmdonlineidprefixes--null) | Return list of online IDs.
+[cmdWatch()](#public-function-cmdwatchfrompos-idprefixes--null) | Return all Realplexor events (e.g. ID offline/offline changes) happened after $fromPos cursor.
 
 ### Protected methods
 
 Method | Description
 --- | ---
-_sendCmd() | Send IN command.
-_send() | Send specified data to IN channel. Return response data.
+[_sendCmd()](#protected-function-_sendcmdcmd) | Send IN command.
+[_send()](#protected-function-_sendidentifier-body) | Send specified data to IN channel. Return response data.
 
 ### Method Details
 
@@ -111,7 +111,27 @@ $idPrefixes | array | Watch only changes of IDs with these prefixes.
 **return** | array | List of ["event" => ..., "cursor" => ..., "id" => ...].
 **throws** | RealplexorException |
 
+#### protected function _sendCmd($cmd)
+
+Send IN command.
+
+Parameter | Type |Description
+--- | --- | ---
+$cmd | string | Command to send.
+**return** | string | Server IN response.
+
+#### protected function _send($identifier, $body)
+
+Send specified data to IN channel. Return response data.
+
+Parameter | Type |Description
+--- | --- | ---
+$identifier | string | If set, pass this identifier string.
+$body | string | Data to be sent.
+**return** | null\|string | Response from IN line.
+**throws** | RealplexorException |
+
 ## Client-side
 
-To implement Realplexor client-side use bower package
+To implement Realplexor client-side feel free to use bower package
 [inpassor-jquery-realplexor](https://github.com/Inpassor/jquery-realplexor)
