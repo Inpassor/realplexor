@@ -8,7 +8,7 @@
  * @author Inpassor <inpassor@yandex.com>
  * @link https://github.com/Inpassor/yii2-realplexor
  *
- * @version 0.1.0 (2016.10.18)
+ * @version 0.1.1 (2016.10.18)
  */
 
 namespace inpassor\realplexor;
@@ -47,7 +47,7 @@ trait RealplexorAPI
     public $timeout = 5;
 
     /**
-     * Send data to realplexor.
+     * Send data to Realplexor.
      * @param mixed $idsAndCursors Target IDs in form of: [id1 => cursor1, id2 => cursor2, ...]
      * or [id1, id2, id3, ...]. If sending to a single ID, you may pass it as a plain string, not array.
      * @param mixed $data Data to be sent (any format, e.g. nested arrays are OK).
