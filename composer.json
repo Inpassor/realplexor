@@ -1,0 +1,24 @@
+{
+    "name": "inpassor/realplexor",
+    "description": "Realplexor PHP API",
+    "keywords": [
+        "dklab_realplexor",
+        "realplexor",
+        "comet",
+        "long",
+        "polling"
+    ],
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Inpassor",
+            "email": "inpassor@yandex.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "inpassor\\realplexor\\": ""
+        }
+    }
+}
