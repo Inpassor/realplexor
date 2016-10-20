@@ -46,26 +46,29 @@ $realplexor->send('Alpha',$someData);
 
 Property | Type |Description
 --- | --- | ---
-host | string | The server host. Default: 127.0.0.1
+host | string | The server host. Default: '127.0.0.1'
 port | integer | The connection port. Default: 10010
 namespace | string | Namespace to use. Default: ''
 login | string | Login for connection (if the server need it). Default: ''
 password | string | Password for connection (if the server need it). Default: ''
 timeout | integer | The connection timeout, in seconds. Default: 5
+charset | integer | Charset used in Content-Type for JSON and other responses. Default: 'UTF-8'
 
 ### Public methods
 
 Method | Description
 --- | ---
 [send()](#public-function-sendidsandcursors-data-showonlyforids--null) | Send data to Realplexor.
-[cmdOnlineWithCounters()](#public-function-cmdonlinewithcountersidprefixes--null) | Return list of online IDs (keys) and number of online browsers for each ID. ("online" means "connected just now", it is very approximate)
-[cmdOnline()](#public-function-cmdonlineidprefixes--null) | Return list of online IDs.
-[cmdWatch()](#public-function-cmdwatchfrompos-idprefixes--null) | Return all Realplexor events (e.g. ID offline/offline changes) happened after $fromPos cursor.
+[cmdOnlineWithCounters()](#public-function-cmdonlinewithcountersidprefixes) | Return list of online IDs (keys) and number of online browsers for each ID ("online" means "connected just now", it is very approximate).
+[cmdOnline()](#public-function-cmdonlineidprefixes) | Return list of online IDs.
+[cmdWatch()](#public-function-cmdwatchfrompos-idprefixes) | Return all Realplexor events (e.g. ID offline/offline changes) happened after $fromPos cursor.
 
 ### Protected methods
 
 Method | Description
 --- | ---
+[_addNamespace()](#protected-function-_addnamespaceidprefixes) | Add the namespace to ID prefixes.
+[_cutNamespace()](#protected-function-_cutnamespaceid) | Cut off the namespace from ID. 
 [_sendCmd()](#protected-function-_sendcmdcmd) | Send IN command.
 [_send()](#protected-function-_sendidentifier-body) | Send specified data to IN channel. Return response data.
 
@@ -82,34 +85,52 @@ $data | mixed | Data to be sent (any format, e.g. nested arrays are OK).
 $showOnlyForIds | array | Send this message to only those who also listen any of these IDs. This parameter may be used to limit the visibility to a closed number of cliens: give each client an unique ID and enumerate client IDs in $showOnlyForIds to not to send messages to others.
 **throws** | RealplexorException |
 
-#### public function cmdOnlineWithCounters($idPrefixes = null)
+#### public function cmdOnlineWithCounters($idPrefixes = [])
 
-Return list of online IDs (keys) and number of online browsers for each ID. ("online" means "connected just now", it is very approximate)
+Return list of online IDs (keys) and number of online browsers for each ID ("online" means "connected just now", it is very approximate).
 
 Parameter | Type |Description
 --- | --- | ---
-$idPrefixes | array | If set, only online IDs with these prefixes are returned.
+$idPrefixes | string\|array | If set, only online IDs with these prefixes are returned.
 **return** | array | List of matched online IDs (keys) and online counters (values).
 
-#### public function cmdOnline($idPrefixes = null)
+#### public function cmdOnline($idPrefixes = [])
 
 Return list of online IDs.
 
 Parameter | Type |Description
 --- | --- | ---
-$idPrefixes | array | If set, only online IDs with these prefixes are returned.
+$idPrefixes | string\|array | If set, only online IDs with these prefixes are returned.
 **return** | array | List of matched online IDs.
 
-#### public function cmdWatch($fromPos, $idPrefixes = null)
+#### public function cmdWatch($fromPos, $idPrefixes = [])
 
 Return all Realplexor events (e.g. ID offline/offline changes) happened after $fromPos cursor.
 
 Parameter | Type |Description
 --- | --- | ---
 $fromPos | string | Start watching from this cursor.
-$idPrefixes | array | Watch only changes of IDs with these prefixes.
+$idPrefixes | string\|array | Watch only changes of IDs with these prefixes.
 **return** | array | List of ["event" => ..., "cursor" => ..., "id" => ...].
 **throws** | RealplexorException |
+
+#### protected function _addNamespace($idPrefixes)
+
+Add the namespace to ID prefixes.
+
+Parameter | Type |Description
+--- | --- | ---
+$idPrefixes | string\|array | ID prefixes without namespace.
+**return** | string | ID prefixes with namespace.
+
+#### protected function _cutNamespace($id)
+
+Cut off the namespace from ID.
+
+Parameter | Type |Description
+--- | --- | ---
+$id | string | ID with namespace.
+**return** | string | ID without namespace.
 
 #### protected function _sendCmd($cmd)
 
