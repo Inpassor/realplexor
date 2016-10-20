@@ -84,7 +84,7 @@ Parameter | Type |Description
 $idsAndCursors | mixed | Target IDs in form of: [id1 => cursor1, id2 => cursor2, ...] or [id1, id2, id3, ...]. If sending to a single ID, you may pass it as a plain string, not array.
 $data | mixed | Data to be sent (any format, e.g. nested arrays are OK).
 $showOnlyForIds | array | Send this message to only those who also listen any of these IDs. This parameter may be used to limit the visibility to a closed number of cliens: give each client an unique ID and enumerate client IDs in $showOnlyForIds to not to send messages to others.
-**return** | boolean | True on success, false on fail (check $this->lastError for error message).
+**return** | boolean | True on success, false on fail. Check $this->lastError for error message if false returned.
 
 #### public function cmdOnlineWithCounters($idPrefixes = [])
 
@@ -149,7 +149,7 @@ Parameter | Type |Description
 --- | --- | ---
 $identifier | string | If set, pass this identifier string.
 $body | string | Data to be sent.
-**return** | null\|string | Response from IN line. Check $this->lastError for error message if null returned.
+**return** | string\|null | Response from IN line. Check $this->lastError for error message if null returned.
 
 ## Client-side
 

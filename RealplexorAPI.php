@@ -64,7 +64,7 @@ trait RealplexorAPI
      * @param array $showOnlyForIds Send this message to only those who also listen any of these IDs.
      * This parameter may be used to limit the visibility to a closed number of cliens: give each client
      * an unique ID and enumerate client IDs in $showOnlyForIds to not to send messages to others.
-     * @return bool True on success, false on fail (check $this->lastError for error message).
+     * @return bool True on success, false on fail. Check $this->lastError for error message if false returned.
      */
     public function send($idsAndCursors, $data, $showOnlyForIds = null)
     {
@@ -209,7 +209,7 @@ trait RealplexorAPI
      * Send specified data to IN channel. Return response data.
      * @param string $identifier If set, pass this identifier string.
      * @param string $body Data to be sent.
-     * @return null|string Response from IN line. Check $this->lastError for error message if null returned.
+     * @return string|null Response from IN line. Check $this->lastError for error message if null returned.
      */
     protected function _send($identifier, $body)
     {
