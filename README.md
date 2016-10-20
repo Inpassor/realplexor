@@ -53,6 +53,7 @@ login | string | Login for connection (if the server need it). Default: ''
 password | string | Password for connection (if the server need it). Default: ''
 timeout | integer | The connection timeout, in seconds. Default: 5
 charset | integer | Charset used in Content-Type for JSON and other responses. Default: 'UTF-8'
+lastError | string | Last error message, if error occured.
 
 ### Public methods
 
@@ -83,7 +84,7 @@ Parameter | Type |Description
 $idsAndCursors | mixed | Target IDs in form of: [id1 => cursor1, id2 => cursor2, ...] or [id1, id2, id3, ...]. If sending to a single ID, you may pass it as a plain string, not array.
 $data | mixed | Data to be sent (any format, e.g. nested arrays are OK).
 $showOnlyForIds | array | Send this message to only those who also listen any of these IDs. This parameter may be used to limit the visibility to a closed number of cliens: give each client an unique ID and enumerate client IDs in $showOnlyForIds to not to send messages to others.
-**throws** | RealplexorException |
+**return** | boolean | True on success, false on fail (check $this->lastError for error message).
 
 #### public function cmdOnlineWithCounters($idPrefixes = [])
 
@@ -92,7 +93,7 @@ Return list of online IDs (keys) and number of online browsers for each ID ("onl
 Parameter | Type |Description
 --- | --- | ---
 $idPrefixes | string\|array | If set, only online IDs with these prefixes are returned.
-**return** | array | List of matched online IDs (keys) and online counters (values).
+**return** | array | List of matched online IDs (keys) and online counters (values). Check $this->lastError for error message if empty array returned.
 
 #### public function cmdOnline($idPrefixes = [])
 
@@ -101,7 +102,7 @@ Return list of online IDs.
 Parameter | Type |Description
 --- | --- | ---
 $idPrefixes | string\|array | If set, only online IDs with these prefixes are returned.
-**return** | array | List of matched online IDs.
+**return** | array | List of matched online IDs. Check $this->lastError for error message if empty array returned.
 
 #### public function cmdWatch($fromPos, $idPrefixes = [])
 
@@ -111,8 +112,7 @@ Parameter | Type |Description
 --- | --- | ---
 $fromPos | string | Start watching from this cursor.
 $idPrefixes | string\|array | Watch only changes of IDs with these prefixes.
-**return** | array | List of ["event" => ..., "cursor" => ..., "id" => ...].
-**throws** | RealplexorException |
+**return** | array | List of ["event" => ..., "cursor" => ..., "id" => ...]. Check $this->lastError for error message if empty array returned.
 
 #### protected function _addNamespace($idPrefixes)
 
@@ -139,7 +139,7 @@ Send IN command.
 Parameter | Type |Description
 --- | --- | ---
 $cmd | string | Command to send.
-**return** | string | Server IN response.
+**return** | string\|null | Server IN response. Check $this->lastError for error message if null returned.
 
 #### protected function _send($identifier, $body)
 
@@ -149,8 +149,7 @@ Parameter | Type |Description
 --- | --- | ---
 $identifier | string | If set, pass this identifier string.
 $body | string | Data to be sent.
-**return** | null\|string | Response from IN line.
-**throws** | RealplexorException |
+**return** | null\|string | Response from IN line. Check $this->lastError for error message if null returned.
 
 ## Client-side
 
