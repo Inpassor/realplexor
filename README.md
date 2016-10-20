@@ -64,9 +64,9 @@ lastError | string | Last error message, if error occured.
 Method | Description
 --- | ---
 [send()](#public-function-sendidsandcursors-data-showonlyforids--null) | Send data to Realplexor.
-[cmdOnlineWithCounters()](#public-function-cmdonlinewithcountersidprefixes) | Return list of online IDs (keys) and number of online browsers for each ID ("online" means "connected just now", it is very approximate).
-[cmdOnline()](#public-function-cmdonlineidprefixes) | Return list of online IDs.
-[cmdWatch()](#public-function-cmdwatchfrompos-idprefixes) | Return all Realplexor events (e.g. ID offline/offline changes) happened after $fromPos cursor.
+[cmdOnlineWithCounters()](#public-function-cmdonlinewithcountersidprefixes--) | Return list of online IDs (keys) and number of online browsers for each ID ("online" means "connected just now", it is very approximate).
+[cmdOnline()](#public-function-cmdonlineidprefixes--) | Return list of online IDs.
+[cmdWatch()](#public-function-cmdwatchfrompos-idprefixes--) | Return all Realplexor events (e.g. ID offline/offline changes) happened after $fromPos cursor.
 
 ### Protected methods
 
