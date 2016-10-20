@@ -12,6 +12,9 @@ PHP API.
 Dklab_Realplexor is comet server which handles 1000000+ parallel
 browser connections.
 
+[![Latest Stable Version](https://poser.pugx.org/inpassor/realplexor/version)](https://packagist.org/packages/inpassor/realplexor)
+[![Total Downloads](https://poser.pugx.org/inpassor/realplexor/downloads)](https://packagist.org/packages/inpassor/realplexor)
+
 ## Installation
 
 ```
